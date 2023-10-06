@@ -42,9 +42,15 @@ public class Nhan_Vien_DAO extends DAO<Nhan_Vien, String> {
         }
 
     @Override
-    public void update(Nhan_Vien entity) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public int update(Nhan_Vien nv,String ma) {
+        sql = "Update Nhan_Vien set Mat_Khau=? And Vai_Tro =? Where Ma_Nhan_Vien =?";
+        try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        }
 
     @Override
     public void delete(String key) {

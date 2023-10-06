@@ -25,9 +25,10 @@ public class Login_JDialog extends javax.swing.JDialog {
      */
     public Login_JDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
     }
 
     void login() {

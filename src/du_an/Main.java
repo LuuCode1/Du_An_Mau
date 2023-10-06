@@ -62,6 +62,8 @@ public class Main extends javax.swing.JFrame {
     void logout() {
         isLoggedIn = false;
         JOptionPane.showMessageDialog(this, "Đã đăng xuất");
+        this.dispose();
+        this.login();
     }
 
     /**
