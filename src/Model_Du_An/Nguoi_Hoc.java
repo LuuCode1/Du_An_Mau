@@ -11,18 +11,19 @@ import java.util.Date;
  * @author Asus
  */
 public class Nguoi_Hoc {
-    private String MaNguoiHoc;
-private String MatKhau;
-private String HoTen;
-private boolean GioiTinh;  
-private Date NgaySinh;
-private String Email;
-private String DienThoai;
-private String GhiChu;
-private Nhan_Vien MaNhanVien;
-private Date NgayDangKy;
 
-    public Nguoi_Hoc(String MaNguoiHoc, String MatKhau, String HoTen, boolean GioiTinh, Date NgaySinh, String Email, String DienThoai, String GhiChu, Nhan_Vien MaNhanVien, Date NgayDangKy) {
+    private String MaNguoiHoc;
+    private String MatKhau;
+    private String HoTen;
+    private int GioiTinh;
+    private String NgaySinh;
+    private String Email;
+    private String DienThoai;
+    private String GhiChu;
+    private Nhan_Vien MaNhanVien;
+    private Date NgayDangKy;
+
+    public Nguoi_Hoc(String MaNguoiHoc, String MatKhau, String HoTen, int GioiTinh, String NgaySinh, String Email, String DienThoai, String GhiChu, Nhan_Vien MaNhanVien, Date NgayDangKy) {
         this.MaNguoiHoc = MaNguoiHoc;
         this.MatKhau = MatKhau;
         this.HoTen = HoTen;
@@ -62,19 +63,19 @@ private Date NgayDangKy;
         this.HoTen = HoTen;
     }
 
-    public boolean isGioiTinh() {
+    public int setGioiTinh() {
         return GioiTinh;
     }
 
-    public void setGioiTinh(boolean GioiTinh) {
+    public void setGioiTinh(int GioiTinh) {
         this.GioiTinh = GioiTinh;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return NgaySinh;
     }
 
-    public void setNgaySinh(Date NgaySinh) {
+    public void setNgaySinh(String NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
 
@@ -118,4 +119,16 @@ private Date NgayDangKy;
         this.NgayDangKy = NgayDangKy;
     }
 
+    public String Gioi_Tinh() {
+        if (GioiTinh == 1) {
+            return "Nam";
+        } else if (GioiTinh == 0) {
+            return "Nữ";
+        } else {
+            return "Giới tính thứ 3";
+        }
+    }
+    public Object[] todata(){
+        return new Object[]{this.MaNguoiHoc,this.HoTen,this.Gioi_Tinh(),this.NgaySinh,this.Email,this.DienThoai,this.GhiChu};
+    }
 }

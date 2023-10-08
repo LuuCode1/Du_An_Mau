@@ -21,7 +21,6 @@ public class Nhan_Vien_DAO extends DAO<Nhan_Vien, String> {
     PreparedStatement ps = null;
     String sql = null;
     ResultSet rs = null;
-    
 
     @Override
     public int insert(Nhan_Vien sv) {
@@ -34,27 +33,41 @@ public class Nhan_Vien_DAO extends DAO<Nhan_Vien, String> {
             ps.setObject(3, sv.getHo_Ten());
             ps.setObject(4, sv.getVai_Tro());
             return ps.executeUpdate();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
-        }
+    }
 
     @Override
-    public int update(Nhan_Vien nv,String ma) {
-        sql = "Update Nhan_Vien set Mat_Khau=? And Vai_Tro =? Where Ma_Nhan_Vien =?";
+    public int update(Nhan_Vien nv, String ma) {
+        sql = "Update Nhan_Vien set Mat_Khau=?, Vai_Tro =? Where Ma_Nhan_Vien =?";
         try {
-            
+            con = DBconnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, nv.getMat_Khau());
+            ps.setObject(2, nv.getVai_Tro());
+            ps.setObject(3, ma);
+            return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
-        }
+    }
 
     @Override
-    public void delete(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(String ma) {
+        sql = "Delete from Nhan_Vien where Ma_Nhan_Vien =?";
+        try {
+            con = DBconnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, ma);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
@@ -99,7 +112,7 @@ public class Nhan_Vien_DAO extends DAO<Nhan_Vien, String> {
             ps = con.prepareStatement(sql);
             ps.setString(1, ma);
             ps.setString(2, pass);
-            
+
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -121,21 +134,44 @@ public class Nhan_Vien_DAO extends DAO<Nhan_Vien, String> {
 
     @Override
     public Nhan_Vien checkMa(String ma) {
-        sql ="SELECT    Ma_Nhan_Vien, Mat_Khau, Ho_Ten, Vai_Tro FROM Nhan_Vien WHERE Ma_Nhan_Vien = ?";
+        sql = "SELECT    Ma_Nhan_Vien, Mat_Khau, Ho_Ten, Vai_Tro FROM Nhan_Vien WHERE Ma_Nhan_Vien = ?";
         Nhan_Vien nv = null;
         try {
             con = DBconnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, ma);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 nv = new Nhan_Vien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
-                
+
             }
             return nv;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-         }
+    }
+
+    public int UpdatePassword(String ma, String passOld, String passNew) {
+
+        String sql = "Update Nhan_Vien set Mat_Khau=? where Ma_Nhan_Vien=? and Mat_Khau=?";
+
+        try {
+            con = DBconnect.getConnection();
+            ps = con.prepareStatement(sql);
+
+            // Thiết lập các giá trị cho câu truy vấn
+            ps.setString(1, passNew);
+            ps.setString(2, ma);
+            ps.setString(3, passOld);
+
+            // Thực thi cập nhật
+            return ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
 }

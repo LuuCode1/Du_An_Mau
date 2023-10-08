@@ -126,6 +126,11 @@ public class Main extends javax.swing.JFrame {
         jToggleButton2.setFocusable(false);
         jToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jToggleButton2);
         jToolBar1.add(jSeparator5);
 
@@ -233,12 +238,22 @@ public class Main extends javax.swing.JFrame {
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/Refresh.png"))); // NOI18N
         jMenuItem3.setText("Đổi Mật Khẩu");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
         jMenu1.add(jSeparator2);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/Stop.png"))); // NOI18N
         jMenuItem4.setText("Kết  Thúc");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -370,6 +385,28 @@ public class Main extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       int a = JOptionPane.showConfirmDialog(this, "bạn có muốn tiếp tục");
+        if (a==0) {
+            System.exit(0); 
+        }else{
+            return;
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        if (isLoggedIn==false) {
+            JOptionPane.showMessageDialog(this, "cần đăng nhập để đổi mật khẩu");
+            login();
+        }else{
+        new Reset_JDialog(this, true).setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     /**
      * @param args the command line arguments

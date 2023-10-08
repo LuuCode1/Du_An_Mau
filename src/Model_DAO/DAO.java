@@ -13,8 +13,8 @@ import java.util.List;
 public abstract class DAO<E,K> {
         abstract public int insert(E entity);
         abstract public E checkMa(K key);
-        abstract public void update(E entity);
-        abstract public void delete(K key);
+        abstract public int update(E entity, K key);
+        abstract public int delete(K key);
         abstract public List<E> selectAll();
         abstract public void SelectById(K key);
         abstract protected void selectBySql(String sql,Object...args);

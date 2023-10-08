@@ -8,13 +8,16 @@ import Model_DAO.Nhan_Vien_DAO;
 import Model_Du_An.Nhan_Vien;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
+import service.UserInfo;
 
 /**
  *
  * @author Asus
  */
 public class Login_JDialog extends javax.swing.JDialog {
+
     List<Nhan_Vien> listNV = new ArrayList<>();
     Nhan_Vien nv = new Nhan_Vien();
     Nhan_Vien_DAO nvd = new Nhan_Vien_DAO();
@@ -28,9 +31,9 @@ public class Login_JDialog extends javax.swing.JDialog {
         setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
-        
-    }
 
+    }
+      
     void login() {
         String maNV = txtname.getText();
         String matKhau = txtpass.getText();
@@ -40,23 +43,20 @@ public class Login_JDialog extends javax.swing.JDialog {
         if (nv != null) {
             int vaiTro = nv.getVai_Tro();
             if (vaiTro == 0) {
-                
+
                 String name = "Trưởng phòng đăng nhập thành công vào hệ thống";
                 JOptionPane.showMessageDialog(this, name);
 
             } else if (vaiTro == 1) {
                 JOptionPane.showMessageDialog(this, "Nhân Viên đăng nhập thành công vào hệ thống");
             }
+            UserInfo.username= txtname.getText();
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!");
 
         }
 
-    }
-
-    public boolean isLoginSuccessful() {
-        return loginSuccessful;
     }
 
     /**
@@ -170,7 +170,7 @@ public class Login_JDialog extends javax.swing.JDialog {
     private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
         if (show.isSelected()) {
             txtpass.setEchoChar((char) 0);
-        }else {
+        } else {
             txtpass.setEchoChar('*');
         }
     }//GEN-LAST:event_showActionPerformed

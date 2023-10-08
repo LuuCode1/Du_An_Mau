@@ -20,7 +20,7 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
     Nhan_Vien_DAO nvd = new Nhan_Vien_DAO();
     Nhan_Vien nv = new Nhan_Vien();
     DefaultTableModel model;
-    int index = -1;
+    int mode = -1;
 
     /**
      * Creates new form Quan_Ly_Nhan_Vien
@@ -32,12 +32,14 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         setDefaultCloseOperation(Quan_Ly_Nhan_Vien.DISPOSE_ON_CLOSE);
         name();
     }
-void name(){
+
+    void name() {
         String[] table1 = {"MaNV", "Mật Khẩu", "Tên", "Vai Trò"};
         for (int i = 0; i < table1.length; i++) {
             tbl_bang.getColumnModel().getColumn(i).setHeaderValue(table1[i]);
         }
-}
+    }
+
     void fillTable(List<Nhan_Vien> list) {
         model = (DefaultTableModel) tbl_bang.getModel();
         model.setRowCount(0);
@@ -105,12 +107,21 @@ void name(){
         } else if (txtpass.getText().trim().length() < 3 || txtpass.getText().trim().length() > 10) {
             JOptionPane.showMessageDialog(this, "Không hợp lệ");
             return false;
-        } 
+        }
         if (!txtpass2.getText().equals(txtpass.getText())) {
             JOptionPane.showMessageDialog(this, "Không trùng");
             return false;
         }
         return true;
+    }
+
+    void exit() {
+        try {
+            mode = tbl_bang.getSelectedRow();
+            this.show(mode);
+        } catch (Exception e) {
+        }
+
     }
 
     /**
@@ -140,8 +151,8 @@ void name(){
         rboNv = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         btn_add = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_Update = new javax.swing.JButton();
+        btn_Delete = new javax.swing.JButton();
         tbn_reset = new javax.swing.JButton();
         txtpass = new javax.swing.JPasswordField();
         txtpass2 = new javax.swing.JPasswordField();
@@ -238,11 +249,21 @@ void name(){
         });
         jPanel4.add(btn_add);
 
-        jButton2.setText("Sửa");
-        jPanel4.add(jButton2);
+        btn_Update.setText("Sửa");
+        btn_Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_UpdateActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_Update);
 
-        jButton3.setText("Xóa");
-        jPanel4.add(jButton3);
+        btn_Delete.setText("Xóa");
+        btn_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_DeleteActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_Delete);
 
         tbn_reset.setText("Mới");
         tbn_reset.addActionListener(new java.awt.event.ActionListener() {
@@ -256,6 +277,11 @@ void name(){
         jButton10.setMaximumSize(new java.awt.Dimension(50, 30));
         jButton10.setMinimumSize(new java.awt.Dimension(40, 20));
         jButton10.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton10);
 
         jButton13.setText("<<");
@@ -263,18 +289,33 @@ void name(){
         jButton13.setMinimumSize(new java.awt.Dimension(40, 20));
         jButton13.setPreferredSize(new java.awt.Dimension(50, 23));
         jButton13.setRequestFocusEnabled(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton13);
 
         jButton14.setText(">>");
         jButton14.setMaximumSize(new java.awt.Dimension(50, 30));
         jButton14.setMinimumSize(new java.awt.Dimension(40, 20));
         jButton14.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton14);
 
         jButton15.setText(">|");
         jButton15.setMaximumSize(new java.awt.Dimension(50, 30));
         jButton15.setMinimumSize(new java.awt.Dimension(40, 20));
         jButton15.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton15);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -373,8 +414,8 @@ void name(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbl_bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_bangMouseClicked
-        index = tbl_bang.getSelectedRow();
-        this.show(index);
+        mode = tbl_bang.getSelectedRow();
+        this.show(mode);
     }//GEN-LAST:event_tbl_bangMouseClicked
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
@@ -408,6 +449,55 @@ void name(){
     private void tbn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbn_resetActionPerformed
         this.reset();
     }//GEN-LAST:event_tbn_resetActionPerformed
+
+    private void btn_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateActionPerformed
+        if (check()) {
+            Nhan_Vien nv = this.read();
+            if (nvd.update(nv, nv.getMa_NV()) > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                fillTable(nvd.selectAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+    }//GEN-LAST:event_btn_UpdateActionPerformed
+
+    private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
+//        if (check()) {
+        String nv = tbl_bang.getValueAt(mode, 0).toString();
+        if (nvd.delete(nv) > 0) {
+            JOptionPane.showMessageDialog(this, "delete thanh cong");
+            fillTable(nvd.selectAll());
+            this.reset();
+        } else {
+            JOptionPane.showMessageDialog(this, "delete thất bại");
+        }
+//        }
+    }//GEN-LAST:event_btn_DeleteActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        mode = 0; // Điều hướng đến bản ghi đầu tiên
+        show(mode);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        if (mode > 0) {
+            mode--; // Điều hướng đến bản ghi trước đó (nếu có)
+            show(mode);
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        if (mode < tbl_bang.getRowCount() - 1) {
+            mode++; // Điều hướng đến bản ghi tiếp theo (nếu có)
+            show(mode);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        mode = tbl_bang.getRowCount() - 1; // Điều hướng đến bản ghi cuối cùng
+    show(mode);
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -445,14 +535,14 @@ void name(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Delete;
+    private javax.swing.JButton btn_Update;
     private javax.swing.JButton btn_add;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
