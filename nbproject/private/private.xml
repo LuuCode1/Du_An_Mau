@@ -6,12 +6,13 @@
             <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/Quan_Ly_Nhan_Vien.java</file>
             <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_Du_An/Nguoi_Hoc.java</file>
             <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_DAO/Chuyen_De_DAO.java</file>
-            <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_Du_An/Nhan_Vien.java</file>
-            <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_DAO/Nguoi_Hoc_DAO.java</file>
-            <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/Reset_JDialog.java</file>
+            <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/ChuyenDeJDialog.java</file>
+            <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_Du_An/Chuyen_De.java</file>
+            <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_DAO/Nhan_Vien_DAO.java</file>
+            <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/HocVienJDialog.java</file>
             <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/Main.java</file>
-            <file>file:/D:/HocTap/JAVA3/Du_An/src/Model_DAO/DAO.java</file>
             <file>file:/D:/HocTap/JAVA3/Du_An/src/service/UserInfo.java</file>
+            <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/KhoaHocJDiaLog.java</file>
             <file>file:/D:/HocTap/JAVA3/Du_An/src/du_an/Quan_Ly_Nguoi_Hoc.java</file>
         </group>
     </open-files>

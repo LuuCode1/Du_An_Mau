@@ -30,7 +30,7 @@ public class Main extends javax.swing.JFrame {
         inti();
     }
 
- private void inti() {
+    private void inti() {
         this.welcome();
         this.login();
         new Timer(10, new ActionListener() {
@@ -46,10 +46,12 @@ public class Main extends javax.swing.JFrame {
 
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
- void welcome(){
-     new NewJDialog(this, true).setVisible(true);
- }
-     void login() {
+
+    void welcome() {
+        new NewJDialog(this, true).setVisible(true);
+    }
+
+    void login() {
         new Login_JDialog(this, true).setVisible(true);
         this.setVisible(true);
 
@@ -57,7 +59,7 @@ public class Main extends javax.swing.JFrame {
         isLoggedIn = true;
         // Thực hiện các hành động sau khi đăng nhập thành công ở đây
 
-    }
+    } 
 
     void logout() {
         isLoggedIn = false;
@@ -80,7 +82,7 @@ public class Main extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
+        btn_nguoiHoc = new javax.swing.JToggleButton();
         jToggleButton5 = new javax.swing.JToggleButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jToggleButton6 = new javax.swing.JToggleButton();
@@ -146,17 +148,17 @@ public class Main extends javax.swing.JFrame {
         });
         jToolBar1.add(jToggleButton3);
 
-        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/Conference.png"))); // NOI18N
-        jToggleButton4.setText("Người Học");
-        jToggleButton4.setFocusable(false);
-        jToggleButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_nguoiHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/Conference.png"))); // NOI18N
+        btn_nguoiHoc.setText("Người Học");
+        btn_nguoiHoc.setFocusable(false);
+        btn_nguoiHoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_nguoiHoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_nguoiHoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
+                btn_nguoiHocActionPerformed(evt);
             }
         });
-        jToolBar1.add(jToggleButton4);
+        jToolBar1.add(btn_nguoiHoc);
 
         jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/Certificate.png"))); // NOI18N
         jToggleButton5.setText("Khóa Học");
@@ -340,9 +342,18 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
+    private void btn_nguoiHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nguoiHocActionPerformed
+        if (isLoggedIn == false) {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập để sử dụng");
+        } else {
+            if (nv.getVai_Tro() == 0) {
+                Quan_Ly_Nguoi_Hoc nh = new Quan_Ly_Nguoi_Hoc();
+                nh.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không thể sử dụng");
+            }
+        }
+    }//GEN-LAST:event_btn_nguoiHocActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
         // TODO add your handling code here:
@@ -378,7 +389,7 @@ public class Main extends javax.swing.JFrame {
             if (nv.getVai_Tro() == 0) {
                 Quan_Ly_Nhan_Vien qlnv = new Quan_Ly_Nhan_Vien();
                 qlnv.setVisible(true);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Còn tiếp...");
             }
 
@@ -387,20 +398,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       int a = JOptionPane.showConfirmDialog(this, "bạn có muốn tiếp tục");
-        if (a==0) {
-            System.exit(0); 
-        }else{
+        int a = JOptionPane.showConfirmDialog(this, "bạn có muốn tiếp tục");
+        if (a == 0) {
+            System.exit(0);
+        } else {
             return;
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        if (isLoggedIn==false) {
+        if (isLoggedIn == false) {
             JOptionPane.showMessageDialog(this, "cần đăng nhập để đổi mật khẩu");
             login();
-        }else{
-        new Reset_JDialog(this, true).setVisible(true);
+        } else {
+            new Reset_JDialog(this, true).setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -443,10 +454,10 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DongHo;
+    private javax.swing.JToggleButton btn_nguoiHoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -475,7 +486,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToolBar jToolBar1;

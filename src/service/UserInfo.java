@@ -4,10 +4,13 @@
  */
 package service;
 
+import java.io.File;
+
 /**
  *
  * @author Asus
  */
 public class UserInfo {
     public static String username;
+    
 }

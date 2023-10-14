@@ -31,6 +31,10 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         fillTable(nvd.selectAll());
         setDefaultCloseOperation(Quan_Ly_Nhan_Vien.DISPOSE_ON_CLOSE);
         name();
+        two.setEnabled(false);
+        three.setEnabled(false);
+        btn_Delete.setEnabled(false);
+        btn_Update.setEnabled(false);
     }
 
     void name() {
@@ -79,6 +83,11 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         txtpass.setText(null);
         txtpass2.setText(null);
         rboNv.setSelected(true);
+        btn_add.setEnabled(true);
+        btn_Delete.setEnabled(false);
+        btn_Update.setEnabled(false);
+        txtmanv.setEnabled(true);
+        
 
     }
 
@@ -115,14 +124,7 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         return true;
     }
 
-    void exit() {
-        try {
-            mode = tbl_bang.getSelectedRow();
-            this.show(mode);
-        } catch (Exception e) {
-        }
-
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,10 +159,10 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         txtpass = new javax.swing.JPasswordField();
         txtpass2 = new javax.swing.JPasswordField();
         jPanel7 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        one = new javax.swing.JButton();
+        two = new javax.swing.JButton();
+        three = new javax.swing.JButton();
+        five = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -273,50 +275,50 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         });
         jPanel4.add(tbn_reset);
 
-        jButton10.setText("|<");
-        jButton10.setMaximumSize(new java.awt.Dimension(50, 30));
-        jButton10.setMinimumSize(new java.awt.Dimension(40, 20));
-        jButton10.setPreferredSize(new java.awt.Dimension(50, 23));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        one.setText("|<");
+        one.setMaximumSize(new java.awt.Dimension(50, 30));
+        one.setMinimumSize(new java.awt.Dimension(40, 20));
+        one.setPreferredSize(new java.awt.Dimension(50, 23));
+        one.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                oneActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton10);
+        jPanel7.add(one);
 
-        jButton13.setText("<<");
-        jButton13.setMaximumSize(new java.awt.Dimension(50, 30));
-        jButton13.setMinimumSize(new java.awt.Dimension(40, 20));
-        jButton13.setPreferredSize(new java.awt.Dimension(50, 23));
-        jButton13.setRequestFocusEnabled(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        two.setText("<<");
+        two.setMaximumSize(new java.awt.Dimension(50, 30));
+        two.setMinimumSize(new java.awt.Dimension(40, 20));
+        two.setPreferredSize(new java.awt.Dimension(50, 23));
+        two.setRequestFocusEnabled(false);
+        two.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                twoActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton13);
+        jPanel7.add(two);
 
-        jButton14.setText(">>");
-        jButton14.setMaximumSize(new java.awt.Dimension(50, 30));
-        jButton14.setMinimumSize(new java.awt.Dimension(40, 20));
-        jButton14.setPreferredSize(new java.awt.Dimension(50, 23));
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        three.setText(">>");
+        three.setMaximumSize(new java.awt.Dimension(50, 30));
+        three.setMinimumSize(new java.awt.Dimension(40, 20));
+        three.setPreferredSize(new java.awt.Dimension(50, 23));
+        three.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                threeActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton14);
+        jPanel7.add(three);
 
-        jButton15.setText(">|");
-        jButton15.setMaximumSize(new java.awt.Dimension(50, 30));
-        jButton15.setMinimumSize(new java.awt.Dimension(40, 20));
-        jButton15.setPreferredSize(new java.awt.Dimension(50, 23));
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        five.setText(">|");
+        five.setMaximumSize(new java.awt.Dimension(50, 30));
+        five.setMinimumSize(new java.awt.Dimension(40, 20));
+        five.setPreferredSize(new java.awt.Dimension(50, 23));
+        five.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                fiveActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton15);
+        jPanel7.add(five);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -416,6 +418,8 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
     private void tbl_bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_bangMouseClicked
         mode = tbl_bang.getSelectedRow();
         this.show(mode);
+        txtmanv.setEnabled(false);
+        btn_add.setEnabled(false);
     }//GEN-LAST:event_tbl_bangMouseClicked
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
@@ -448,14 +452,20 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
 
     private void tbn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbn_resetActionPerformed
         this.reset();
+        
     }//GEN-LAST:event_tbn_resetActionPerformed
 
     private void btn_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateActionPerformed
         if (check()) {
+
             Nhan_Vien nv = this.read();
             if (nvd.update(nv, nv.getMa_NV()) > 0) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 fillTable(nvd.selectAll());
+                btn_add.setEnabled(true);
+                btn_Delete.setEnabled(false);
+                btn_Update.setEnabled(false);
+                this.reset();
             } else {
                 JOptionPane.showMessageDialog(this, "Sửa thất bại");
             }
@@ -468,6 +478,9 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
         if (nvd.delete(nv) > 0) {
             JOptionPane.showMessageDialog(this, "delete thanh cong");
             fillTable(nvd.selectAll());
+            btn_add.setEnabled(true);
+            btn_Delete.setEnabled(false);
+            btn_Update.setEnabled(false);
             this.reset();
         } else {
             JOptionPane.showMessageDialog(this, "delete thất bại");
@@ -475,29 +488,40 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void oneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneActionPerformed
         mode = 0; // Điều hướng đến bản ghi đầu tiên
         show(mode);
-    }//GEN-LAST:event_jButton10ActionPerformed
+        two.setEnabled(true);
+        three.setEnabled(true);
+        one.setEnabled(false);
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_oneActionPerformed
+
+    private void twoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoActionPerformed
         if (mode > 0) {
             mode--; // Điều hướng đến bản ghi trước đó (nếu có)
             show(mode);
+            one.setEnabled(true);
+            five.setEnabled(true);
         }
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_twoActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void threeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeActionPerformed
         if (mode < tbl_bang.getRowCount() - 1) {
             mode++; // Điều hướng đến bản ghi tiếp theo (nếu có)
             show(mode);
+            one.setEnabled(true);
+            five.setEnabled(true);
         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_threeActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void fiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveActionPerformed
         mode = tbl_bang.getRowCount() - 1; // Điều hướng đến bản ghi cuối cùng
-    show(mode);
-    }//GEN-LAST:event_jButton15ActionPerformed
+        show(mode);
+        five.setEnabled(false);
+        two.setEnabled(true);
+        three.setEnabled(true);
+    }//GEN-LAST:event_fiveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -539,10 +563,7 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
     private javax.swing.JButton btn_Update;
     private javax.swing.JButton btn_add;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
+    private javax.swing.JButton five;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -556,10 +577,13 @@ public class Quan_Ly_Nhan_Vien extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton one;
     private javax.swing.JRadioButton rboNv;
     private javax.swing.JRadioButton rboTp;
     private javax.swing.JTable tbl_bang;
     private javax.swing.JButton tbn_reset;
+    private javax.swing.JButton three;
+    private javax.swing.JButton two;
     private javax.swing.JTextField txtmanv;
     private javax.swing.JTextField txtname;
     private javax.swing.JPasswordField txtpass;

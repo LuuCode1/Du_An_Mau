@@ -75,5 +75,7 @@ public class Chuyen_De {
     public void setMo_Ta(String mo_Ta) {
         this.mo_Ta = mo_Ta;
     }
-    
+    public Object[] todata(){
+        return new Object[]{this.ma_CD,this.ten_CD,this.hoc_Phi,this.thoi_Luong,this.hinh,this.mo_Ta};
+    }
 }

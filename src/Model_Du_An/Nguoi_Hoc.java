@@ -13,19 +13,19 @@ import java.util.Date;
 public class Nguoi_Hoc {
 
     private String MaNguoiHoc;
-    private String MatKhau;
+ 
     private String HoTen;
     private int GioiTinh;
-    private String NgaySinh;
+    private Date NgaySinh;
     private String Email;
     private String DienThoai;
     private String GhiChu;
     private Nhan_Vien MaNhanVien;
     private Date NgayDangKy;
 
-    public Nguoi_Hoc(String MaNguoiHoc, String MatKhau, String HoTen, int GioiTinh, String NgaySinh, String Email, String DienThoai, String GhiChu, Nhan_Vien MaNhanVien, Date NgayDangKy) {
+    public Nguoi_Hoc(String MaNguoiHoc, String HoTen, int GioiTinh, Date NgaySinh, String Email, String DienThoai, String GhiChu, Nhan_Vien MaNhanVien, Date NgayDangKy) {
         this.MaNguoiHoc = MaNguoiHoc;
-        this.MatKhau = MatKhau;
+       
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
         this.NgaySinh = NgaySinh;
@@ -36,6 +36,18 @@ public class Nguoi_Hoc {
         this.NgayDangKy = NgayDangKy;
     }
 
+    public Nguoi_Hoc(String MaNguoiHoc,String HoTen, int GioiTinh, Date NgaySinh, String Email, String DienThoai, String GhiChu, Nhan_Vien MaNhanVien) {
+        this.MaNguoiHoc = MaNguoiHoc;
+        
+        this.HoTen = HoTen;
+        this.GioiTinh = GioiTinh;
+        this.NgaySinh = NgaySinh;
+        this.Email = Email;
+        this.DienThoai = DienThoai;
+        this.GhiChu = GhiChu;
+        this.MaNhanVien = MaNhanVien;
+    }
+    
     public Nguoi_Hoc() {
     }
 
@@ -47,14 +59,6 @@ public class Nguoi_Hoc {
         this.MaNguoiHoc = MaNguoiHoc;
     }
 
-    public String getMatKhau() {
-        return MatKhau;
-    }
-
-    public void setMatKhau(String MatKhau) {
-        this.MatKhau = MatKhau;
-    }
-
     public String getHoTen() {
         return HoTen;
     }
@@ -63,7 +67,7 @@ public class Nguoi_Hoc {
         this.HoTen = HoTen;
     }
 
-    public int setGioiTinh() {
+    public int getGioiTinh() {
         return GioiTinh;
     }
 
@@ -71,11 +75,11 @@ public class Nguoi_Hoc {
         this.GioiTinh = GioiTinh;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return NgaySinh;
     }
 
-    public void setNgaySinh(String NgaySinh) {
+    public void setNgaySinh(Date NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
 
@@ -129,6 +133,6 @@ public class Nguoi_Hoc {
         }
     }
     public Object[] todata(){
-        return new Object[]{this.MaNguoiHoc,this.HoTen,this.Gioi_Tinh(),this.NgaySinh,this.Email,this.DienThoai,this.GhiChu};
+        return new Object[]{this.MaNguoiHoc,this.HoTen,this.Gioi_Tinh(),this.NgaySinh,this.Email,this.DienThoai,this.GhiChu,this.MaNhanVien.getMa_NV(),this.NgayDangKy};
     }
 }
