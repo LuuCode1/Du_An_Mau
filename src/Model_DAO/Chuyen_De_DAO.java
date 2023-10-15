@@ -40,18 +40,20 @@ public class Chuyen_De_DAO extends DAO<Chuyen_De, String> {
         }
     }
 
-    public void update(Chuyen_De entity) {
-        sql="UPDATE Chuyen_De SET Ten_Chuyen_De = ?, Hoc_Phi = ?, Thoi_Luong = ? WHERE Ma_Chuyen_De = ?";
-        try {
-            
-        } catch (Exception e) {
-        }
-        }
 
     @Override
-    public int delete(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public int delete(String macd) {
+        sql ="Delete from Chuyen_De where Ma_Chuyen_De=?";
+        try {
+            con = DBconnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1,macd); 
+            return ps.executeUpdate();  
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        }
 
     @Override
     public List<Chuyen_De> selectAll() {
@@ -127,9 +129,7 @@ public class Chuyen_De_DAO extends DAO<Chuyen_De, String> {
             ps.setObject(4, cd.getHinh());
             ps.setObject(5, cd.getMo_Ta());
             ps.setObject(6, ma);
-            return ps.executeUpdate();
-            
-            
+            return ps.executeUpdate();  
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

@@ -6,9 +6,11 @@ package du_an;
 
 import Model_DAO.Chuyen_De_DAO;
 import Model_Du_An.Chuyen_De;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.JobAttributes;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -38,10 +40,12 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         fillTable(cdd.selectAll());
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnNext.setEnabled(false);
+        btnPrev.setEnabled(false);
 
     }
-
-   
 
     void fillTable(List<Chuyen_De> list) {
         model = (DefaultTableModel) tblChuyenDe.getModel();
@@ -58,19 +62,22 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         txtMoTaCD.setText(cd.getMo_Ta());
         txtThoiLuong.setText(String.valueOf(cd.getThoi_Luong()));
         txtHocPhi.setText(String.valueOf(cd.getHoc_Phi()));
-        
-        
+        lblHinh.setIcon(null);
         try {
 
-            File anh = new File(cd.getHinh());
-            Image ima = ImageIO.read(anh);
-
+//            File anh = new File(cd.getHinh());
+//            Image ima = ImageIO.read(anh);
+//
+//            int width = lblHinh.getWidth();
+//            int height = lblHinh.getHeight();
+//            lblHinh.setIcon(new ImageIcon(ima.getScaledInstance(width, height, 0)));
+            File file = new File(cd.getHinh());
+            Image img = ImageIO.read(file);
             int width = lblHinh.getWidth();
             int height = lblHinh.getHeight();
-            lblHinh.setIcon(new ImageIcon(ima.getScaledInstance(width, height, 0)));
-//                ImageIcon icon = new ImageIcon(cd.getHinh());
-//                lblHinh.setIcon(icon);
-//                System.out.println(cd.getHinh());
+            Image resizedImage = img.getScaledInstance(width, height, 0);
+            lblHinh.setIcon(new ImageIcon(resizedImage));
+//            System.out.println(cd.getHinh());
         } catch (Exception e) {
         }
     }
@@ -84,6 +91,24 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         cd.setMo_Ta(txtMoTaCD.getText());
         cd.setHinh(linkAnh);
         return cd;
+    }
+
+    boolean check() {
+        if (txtMaCD.getText().isEmpty()) {
+            checkname.setText("ma không được bỏ chống");
+            checkname.setForeground(Color.red);
+            return false;
+        }
+        return true;
+    }
+
+    void Reset() {
+        txtHocPhi.setText(null);
+        txtMaCD.setText(null);
+        txtMoTaCD.setText(null);
+        txtTenCD.setText(null);
+        txtThoiLuong.setText(null);
+        lblHinh.setIcon(null);
     }
 
     /**
@@ -109,6 +134,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         txtThoiLuong = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtHocPhi = new javax.swing.JTextField();
+        checkname = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -175,16 +201,17 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaCD)
+                    .addComponent(txtTenCD)
+                    .addComponent(txtThoiLuong)
+                    .addComponent(txtHocPhi)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtTenCD)
-                    .addComponent(txtThoiLuong)
-                    .addComponent(txtHocPhi))
+                            .addComponent(jLabel7)
+                            .addComponent(checkname, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -194,7 +221,9 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMaCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addComponent(checkname, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +235,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtHocPhi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jLabel9.setText("Mô tả chuyên đề");
@@ -250,8 +279,18 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         });
 
         btnDelete.setText("Xóa");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Mới");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -279,12 +318,32 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         );
 
         btnFirst.setText("|<");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
 
         btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
 
         btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
 
         btnLast.setText(">|");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -302,7 +361,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst)
                     .addComponent(btnPrev)
@@ -327,7 +386,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -339,10 +398,13 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 25, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jTabbedPane1.addTab("Cập nhật", jPanel1);
@@ -423,7 +485,10 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         index = tblChuyenDe.getSelectedRow();
         this.Show(index);
-        
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnInsert.setEnabled(false);
+
     }//GEN-LAST:event_tblChuyenDeMouseClicked
 
     private void tblChuyenDeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChuyenDeMousePressed
@@ -443,16 +508,91 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
             int heigh = lblHinh.getHeight();
             lblHinh.setIcon(new ImageIcon(img.getScaledInstance(width, heigh, 0)));
             linkAnh = file.getAbsolutePath();
-
         } catch (Exception e) {
             return;
         }
     }//GEN-LAST:event_lblHinhMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Chuyen_De cd = this.Read();
-        
+        if (check()) {
+            Chuyen_De cd = this.Read();
+            if (cdd.update(cd, cd.getMa_CD()) > 0) {
+                JOptionPane.showMessageDialog(this, "thanh cong");
+                fillTable(cdd.selectAll());
+                this.Reset();
+            } else {
+                JOptionPane.showMessageDialog(this, "that bai");
+            }
+        }
+
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        this.Reset();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if (check()) {
+            String ma = tblChuyenDe.getValueAt(index, 0).toString();
+            if (cdd.delete(ma) > 0) {
+                JOptionPane.showMessageDialog(this, "thanh công");
+                fillTable(cdd.selectAll());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        index = 0;
+        Show(index);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnInsert.setEnabled(false);
+        btnFirst.setEnabled(false);
+        btnLast.setEnabled(true);
+        
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        if (index > 0) {
+            index--;
+            Show(index);
+            btnNext.setEnabled(true);
+            btnUpdate.setEnabled(true);
+            btnDelete.setEnabled(true);
+            btnInsert.setEnabled(false);
+            btnFirst.setEnabled(true);
+            btnLast.setEnabled(true);
+        }else if(index==0){
+            btnPrev.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        if (index < tblChuyenDe.getRowCount() - 1) {
+            index++;
+            Show(index);
+            btnPrev.setEnabled(true);
+            btnUpdate.setEnabled(true);
+            btnDelete.setEnabled(true);
+            btnInsert.setEnabled(false);
+            btnFirst.setEnabled(true);
+            btnLast.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        index = tblChuyenDe.getRowCount() - 1;
+        Show(index);
+        btnPrev.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnInsert.setEnabled(false);
+        btnFirst.setEnabled(true);
+        btnLast.setEnabled(false);
+    }//GEN-LAST:event_btnLastActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,6 +645,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel checkname;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
